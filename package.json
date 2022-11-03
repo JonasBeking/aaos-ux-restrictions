@@ -1,5 +1,5 @@
 {
-  "name": "aaos-ux-restrictions",
+  "name": "@capacitor-community/aaos-ux-restrictions",
   "version": "0.0.1",
   "description": "Providing Access to Androi Automotive OS UXRestrictions",
   "main": "dist/plugin.cjs.js",
@@ -37,7 +37,7 @@
     "eslint": "eslint . --ext ts",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
     "swiftlint": "node-swiftlint",
-    "docgen": "docgen --api AAOSUxRestrictionsPlugin --output-readme README.md --output-json dist/docs.json",
+    "docgen": "docgen --api VehicleUxRestrictionsPluginInterface --output-readme README.md --output-json dist/docs.json",
     "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
@@ -74,5 +74,8 @@
     "android": {
       "src": "android"
     }
+  },
+  "dependencies": {
+    "@capacitor-community/aaos-data-utils": "file:../aaos-data-utils"
   }
 }
