@@ -1,5 +1,6 @@
 package io.ionic.plugins.aaosuxrestrictions;
 
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -8,7 +9,6 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import io.ionic.plugins.aaosdatautils.DataPlugin;
 import io.ionic.plugins.aaosdatautils.dataerror.DataErrorHandler;
 import io.ionic.plugins.aaosdatautils.dataerror.MissingPluginCallArgumentException;
-
 
 @CapacitorPlugin(name = "VehicleUxRestrictionsPlugin")
 public class VehicleUxRestrictionPlugin extends DataPlugin<VehicleUxEventCallback> {
@@ -35,7 +35,7 @@ public class VehicleUxRestrictionPlugin extends DataPlugin<VehicleUxEventCallbac
             if(addressableName == null) {
                 throw new MissingPluginCallArgumentException("addressableName");
             }
-            this.dataViewManager.generate(pluginCall,addressableName,true,true);
+            this.dataViewManager.generate(pluginCall,addressableName,true);
         });
     }
 
@@ -50,7 +50,7 @@ public class VehicleUxRestrictionPlugin extends DataPlugin<VehicleUxEventCallbac
             if(overwriteOldEvents == null) {
                 throw new MissingPluginCallArgumentException("overwriteOldEvents");
             }
-            this.dataViewManager.generate(pluginCall,addressableName,false,overwriteOldEvents);
+            this.dataViewManager.generate(pluginCall,addressableName,overwriteOldEvents);
             pluginCall.resolve();
         });
     }

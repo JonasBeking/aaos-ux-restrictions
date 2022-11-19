@@ -1,10 +1,14 @@
-import {registerPlugin} from "@capacitor/core";
+import type { VehicleErrorEvent} from "@capacitor-community/aaos-data-utils";
 import {VehicleDataProxy} from "@capacitor-community/aaos-data-utils";
-import {VehicleUxRestrictionsEvent, VehicleUxRestrictionsPluginInterface} from "./definitions";
+import {registerPlugin} from "@capacitor/core";
+
+import type {VehicleUxRestrictionsEvent} from "./definitions";
+import { VehicleUxRestrictionsPluginInterface} from "./definitions";
+
 
 const VehicleUxRestrictionsPluginInterface = registerPlugin<VehicleUxRestrictionsPluginInterface>('VehicleUxRestrictionsPlugin')
 
-export class VehicleUxRestrictionsPlugin extends VehicleDataProxy<VehicleUxRestrictionsEvent>{
+export class VehicleUxRestrictionsPlugin extends VehicleDataProxy<VehicleUxRestrictionsEvent,VehicleErrorEvent>{
 
   constructor() {
     super(VehicleUxRestrictionsPluginInterface);

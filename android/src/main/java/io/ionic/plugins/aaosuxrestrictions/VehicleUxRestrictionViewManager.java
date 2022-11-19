@@ -10,6 +10,7 @@ import com.getcapacitor.PluginCall;
 import io.ionic.plugins.aaosdatautils.dataview.DataView;
 import io.ionic.plugins.aaosdatautils.dataview.DataViewManager;
 
+
 public class VehicleUxRestrictionViewManager extends DataViewManager<VehicleUxEventCallback> {
     private final CarUxRestrictionsManager carUxRestrictionsManager;
 
@@ -20,17 +21,15 @@ public class VehicleUxRestrictionViewManager extends DataViewManager<VehicleUxEv
     }
 
     public VehicleUxRestrictionsDataEvent quickView() {
-        return new VehicleUxRestrictionsDataEvent("view",this.carUxRestrictionsManager.getCurrentCarUxRestrictions());
+        return new VehicleUxRestrictionsDataEvent(VehicleUxRestrictionsDataEvent.Name.VIEW,this.carUxRestrictionsManager.getCurrentCarUxRestrictions());
     }
 
     @Override
-    public DataView<VehicleUxEventCallback> generate(PluginCall pluginCall, String addressableName, Boolean isActive, Boolean overwriteOldEvents) {
-        DataView<VehicleUxEventCallback> uxRestrictionDataView = super.generate(pluginCall,addressableName,isActive,overwriteOldEvents);
+    public DataView<VehicleUxEventCallback> generate(PluginCall pluginCall, String addressableName, Boolean isActive) {
+        DataView<VehicleUxEventCallback> uxRestrictionDataView = super.generate(pluginCall,addressableName,isActive);
         carUxRestrictionsManager.registerListener(uxRestrictionDataView.getCallback());
         return uxRestrictionDataView;
     }
-
-
 
     @Override
     public DataView<VehicleUxEventCallback> remove(String addressableName, Bridge bridge) {

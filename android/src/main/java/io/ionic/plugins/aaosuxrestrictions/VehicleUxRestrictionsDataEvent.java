@@ -1,16 +1,20 @@
 package io.ionic.plugins.aaosuxrestrictions;
 
-
 import android.car.drivingstate.CarUxRestrictions;
+import io.ionic.plugins.aaosdatautils.dataevent.DataValueEvent;
 
-import io.ionic.plugins.aaosdatautils.dataevent.DataEvent;
+public class VehicleUxRestrictionsDataEvent extends DataValueEvent {
 
-public class VehicleUxRestrictionsDataEvent extends DataEvent {
+    enum Name{
+        CHANGE,
+        VIEW
+    }
+
     /**
      * Leave extraction of parameters to event as code would be unreadable otherwise
      */
-    VehicleUxRestrictionsDataEvent(String eventName, CarUxRestrictions carUxRestrictions) {
-        super(eventName);
+    VehicleUxRestrictionsDataEvent(VehicleUxRestrictionsDataEvent.Name eventName, CarUxRestrictions carUxRestrictions) {
+        super(eventName.ordinal());
 
         putData("restrictions",carUxRestrictions.getActiveRestrictions());
         putData("maxContentDepth",carUxRestrictions.getMaxContentDepth());
