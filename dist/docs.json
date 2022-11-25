@@ -1,0 +1,44 @@
+{
+  "api": {
+    "name": "VehicleUxRestrictionsPluginInterface",
+    "slug": "vehicleuxrestrictionsplugininterface",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "quickView",
+        "signature": "() => Promise<VehicleUxRestrictionsEvent>",
+        "parameters": [],
+        "returns": "Promise<VehicleUxRestrictionsEvent>",
+        "tags": [],
+        "docs": "Take direct access to the currently active restrictions instead of using the DataView mechanism",
+        "complexTypes": [
+          "VehicleUxRestrictionsEvent"
+        ],
+        "slug": "quickview"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "VehicleUxRestrictionsEvent",
+      "slug": "vehicleuxrestrictionsevent",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "data",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "{ restrictions: number; maxContentDepth: number; maxCumulativeContentItems: number; maxRestrictedStringLength: number; distractionOptimizationRequired: boolean; }"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}

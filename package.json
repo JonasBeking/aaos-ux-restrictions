@@ -9,9 +9,7 @@
   "files": [
     "android/src/main/",
     "android/build.gradle",
-    "dist/",
-    "ios/Plugin/",
-    "AaosUxRestrictions.podspec"
+    "dist/"
   ],
   "author": "Jonas Beking",
   "license": "MIT",
@@ -69,14 +67,11 @@
     "extends": "@ionic/eslint-config/recommended"
   },
   "capacitor": {
-    "ios": {
-      "src": "ios"
-    },
     "android": {
       "src": "android"
     }
   },
   "dependencies": {
-    "@capacitor-community/aaos-data-utils": "file:../aaos-data-utils"
+    "@capacitor-community/aaos-data-utils": "github:JonasBeking/aaos-data-utils"
   }
 }
