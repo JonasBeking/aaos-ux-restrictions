@@ -7,11 +7,20 @@ export class VehicleUxRestrictionsPlugin extends VehicleDataProxy {
     }
     quickView() {
         return this.dataService.quickView().then(vehicleUxRestrictionsEvent => {
-            console.log(`Received value: ${vehicleUxRestrictionsEvent} for CarUxRestrictions`);
+            console.debug(`Received value: ${JSON.stringify(vehicleUxRestrictionsEvent, null, 3)} for CarUxRestrictions`);
             return vehicleUxRestrictionsEvent;
-        }).catch(reason => {
-            console.error(`Failed receiving value for CarUxRestrictions. Reason ${reason}`);
-            throw JSON.parse(reason);
+        }).catch(errorEvent => {
+            let throwable;
+            let log = errorEvent;
+            try {
+                throwable = JSON.parse(errorEvent);
+                log = JSON.stringify(throwable, null, 3);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            console.error(`Failed receiving value for CarUxRestrictions. Reason ${log}`);
+            throw throwable;
         });
     }
 }

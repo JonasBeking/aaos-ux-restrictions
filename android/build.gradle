@@ -39,6 +39,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    useLibrary 'android.car'
 }
 
 repositories {
@@ -49,7 +51,6 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('C:/Users/gjunj/AppData/Local/Android/Sdk/platforms/android-32/optional/android.car.jar')
     implementation 'androidx.car.app:app-automotive:1.1.0'
     implementation 'androidx.car.app:app:1.1.0'
     implementation project(':capacitor-android')

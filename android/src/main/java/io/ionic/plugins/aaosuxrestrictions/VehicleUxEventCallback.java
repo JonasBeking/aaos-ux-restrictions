@@ -25,8 +25,9 @@ public class VehicleUxEventCallback implements DataCallback<VehicleUxEventCallba
 
     @Override
     public void onUxRestrictionsChanged(CarUxRestrictions carUxRestrictions) {
-        VehicleUxRestrictionsDataEvent vehicleUxRestrictionsDataEvent = new VehicleUxRestrictionsDataEvent(VehicleUxRestrictionsDataEvent.Name.CHANGE,carUxRestrictions);
+
         Log.d(TAG,"Received changed active UX Restrictions: " + carUxRestrictions.toString());
+        VehicleUxRestrictionsDataEvent vehicleUxRestrictionsDataEvent = new VehicleUxRestrictionsDataEvent(VehicleUxRestrictionsDataEvent.Name.CHANGE,carUxRestrictions);
         this.passDataToView(vehicleUxRestrictionsDataEvent);
     }
 

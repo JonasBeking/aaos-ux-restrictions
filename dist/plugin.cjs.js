@@ -9,24 +9,31 @@ class VehicleDataProxy {
         this.dataService = dataService;
     }
     generateActiveView(dataId, callback, addressableName) {
-        console.log("Attempting to generate active view");
         return this.dataService.generateActiveView({
             dataId: dataId,
             addressableName: addressableName
         }, ((dataEvent, err) => {
             if (err) {
-                console.error(`Failed getting value for propertyId: ${dataId} - ${addressableName}`);
-                callback(dataEvent, err);
+                const errorEvent = JSON.parse(err);
+                console.error(`Failed getting value for propertyId: ${dataId} - ${addressableName} due to ${err}`);
+                callback(dataEvent, errorEvent);
             }
             else {
-                console.log(`Received value: ${JSON.stringify(dataEvent)} for propertyId: ${dataId} - ${addressableName}`);
+                console.debug(`Received value: ${JSON.stringify(dataEvent)} for propertyId: ${dataId} - ${addressableName}`);
                 callback(dataEvent);
             }
         })).then(() => {
-            console.log(`Successfully registered Active Property View for propertyId: ${dataId} - ${addressableName}`);
+            console.debug(`Requested Active Property View for propertyId: ${dataId} - ${addressableName}`);
         }).catch(errorEvent => {
             console.error(`Failed registering Active Property View for propertyId: ${dataId} - ${addressableName}. Reason: ${errorEvent}`);
-            throw JSON.parse(errorEvent);
+            let throwable;
+            try {
+                throwable = JSON.parse(errorEvent);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            throw throwable;
         });
     }
     generatePassiveView(dataId, addressableName) {
@@ -34,25 +41,39 @@ class VehicleDataProxy {
             dataId: dataId,
             addressableName: addressableName
         }).then(() => {
-            console.log(`Successfully registered Passive Property View for propertyId: ${dataId} - ${addressableName}`);
+            console.debug(`Successfully registered Passive Property View for propertyId: ${dataId} - ${addressableName}`);
         }).catch(errorEvent => {
             console.error(`Failed registering Passive Property View for propertyId: ${dataId} - ${addressableName}. Reason: ${errorEvent}`);
-            throw JSON.parse(errorEvent);
+            let throwable;
+            try {
+                throwable = JSON.parse(errorEvent);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            throw throwable;
         });
     }
     removeView(addressableName) {
         return this.dataService.removeView({
             addressableName: addressableName
         }).then(() => {
-            console.log(`Removed View for ${addressableName}`);
+            console.debug(`Removed View for ${addressableName}`);
         }).catch(errorEvent => {
             console.error(`Failed removing View for ${addressableName}. Reason: ${errorEvent}`);
-            throw JSON.parse(errorEvent);
+            let throwable;
+            try {
+                throwable = JSON.parse(errorEvent);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            throw throwable;
         });
     }
     view(addressableName) {
         return this.dataService.view({ addressableName: addressableName }).then((event) => {
-            console.log(`Received value: ${JSON.stringify(event)} for ${addressableName}`);
+            console.debug(`Received value: ${JSON.stringify(event)} for ${addressableName}`);
             if (event.event === -1) {
                 return event;
             }
@@ -61,16 +82,30 @@ class VehicleDataProxy {
             }
         }).catch(errorEvent => {
             console.error(`Failed receiving value for ${addressableName}. Reason ${errorEvent}`);
-            throw JSON.parse(errorEvent);
+            let throwable;
+            try {
+                throwable = JSON.parse(errorEvent);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            throw throwable;
         });
     }
     viewAll(addressableName) {
         return this.dataService.viewAll({ addressableName: addressableName }).then(({ events }) => {
-            console.log(`Received value: ${JSON.stringify(events)} for ${addressableName}`);
+            console.debug(`Received value: ${JSON.stringify(events)} for ${addressableName}`);
             return events;
         }).catch(errorEvent => {
             console.error(`Failed receiving value for ${addressableName}. Reason ${errorEvent}`);
-            throw JSON.parse(errorEvent);
+            let throwable;
+            try {
+                throwable = JSON.parse(errorEvent);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            throw throwable;
         });
     }
 }
@@ -97,11 +132,20 @@ class VehicleUxRestrictionsPlugin extends VehicleDataProxy {
     }
     quickView() {
         return this.dataService.quickView().then(vehicleUxRestrictionsEvent => {
-            console.log(`Received value: ${vehicleUxRestrictionsEvent} for CarUxRestrictions`);
+            console.debug(`Received value: ${JSON.stringify(vehicleUxRestrictionsEvent, null, 3)} for CarUxRestrictions`);
             return vehicleUxRestrictionsEvent;
-        }).catch(reason => {
-            console.error(`Failed receiving value for CarUxRestrictions. Reason ${reason}`);
-            throw JSON.parse(reason);
+        }).catch(errorEvent => {
+            let throwable;
+            let log = errorEvent;
+            try {
+                throwable = JSON.parse(errorEvent);
+                log = JSON.stringify(throwable, null, 3);
+            }
+            catch (e) {
+                throwable = errorEvent;
+            }
+            console.error(`Failed receiving value for CarUxRestrictions. Reason ${log}`);
+            throw throwable;
         });
     }
 }

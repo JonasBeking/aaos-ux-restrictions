@@ -3,6 +3,7 @@ package io.ionic.plugins.aaosuxrestrictions;
 import android.car.Car;
 import android.car.drivingstate.CarUxRestrictionsManager;
 import android.content.Context;
+import android.util.Log;
 
 import com.getcapacitor.Bridge;
 import com.getcapacitor.PluginCall;
@@ -26,8 +27,11 @@ public class VehicleUxRestrictionViewManager extends DataViewManager<VehicleUxEv
 
     @Override
     public DataView<VehicleUxEventCallback> generate(PluginCall pluginCall, String addressableName, Boolean isActive) {
+
         DataView<VehicleUxEventCallback> uxRestrictionDataView = super.generate(pluginCall,addressableName,isActive);
+
         carUxRestrictionsManager.registerListener(uxRestrictionDataView.getCallback());
+
         return uxRestrictionDataView;
     }
 
